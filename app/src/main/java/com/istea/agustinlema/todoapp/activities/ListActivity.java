@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -27,17 +29,48 @@ public class ListActivity extends AppCompatActivity {
     ListView lvToDoItems;
     private List<ToDoItem> todoItems;
 
+    private Toolbar toolbarList;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         setupUI();
+        setupToolbar();
         initializeListView();
         showNotification();
     }
 
     private void setupUI() {
         lvToDoItems = (ListView) findViewById(R.id.lvToDoItems);
+
+        toolbarList = (Toolbar) findViewById(R.id.toolbarList);
+    }
+
+    private void setupToolbar(){
+        setSupportActionBar(toolbarList);
+        getSupportActionBar().setTitle("Tareas pendientes");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar_list, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if ( item.getItemId() == R.id.menuConfig) {
+            Toast.makeText(this, "Muestro config", Toast.LENGTH_SHORT).show();
+            //Intent intent = new Intent(this,SettingsActivity.class);
+            //startActivity(intent);
+        }
+        else if (item.getItemId() == R.id.menuAdd) {
+            Toast.makeText(this, "Agregar elemento", Toast.LENGTH_SHORT).show();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void initializeListView() {
