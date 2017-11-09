@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,8 @@ public class ItemViewActivity extends AppCompatActivity {
     private TextView tvBody;
     private CheckBox chkImportant;
 
+    private Toolbar toolbarView;
+
     private ToDoItem item;
 
     @Override
@@ -30,6 +33,7 @@ public class ItemViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_view);
         setupUI();
         loadData();
+        setupToolbar();
     }
 
     @Override
@@ -66,5 +70,33 @@ public class ItemViewActivity extends AppCompatActivity {
         tvTitle.setText(item.getTitle());
         tvBody.setText(item.getBody());
         chkImportant.setChecked(item.isImportant());
+    }
+
+    private void setupToolbar(){
+        toolbarView = (Toolbar) findViewById(R.id.toolbarView);
+        setSupportActionBar(toolbarView);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Only go back one level
+        getSupportActionBar().setTitle("Ver tarea");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar_view, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        //TODO: Cambiar a switch?
+        if ( menuItem.getItemId() == R.id.menuEdit) {
+            //Intent intent = new Intent(ItemViewActivity.this,ItemEditActivity.class);
+            //intent.putExtra("ITEMID",item.getId());
+            //startActivity(intent);
+        } else if (menuItem.getItemId() == R.id.menuDelete) {
+            //showDeleteConfirmation();
+        } else if (menuItem.getItemId() == android.R.id.home){
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(menuItem);
     }
 }
