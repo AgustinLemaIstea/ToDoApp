@@ -59,9 +59,6 @@ public class ItemDBHelper extends SQLiteOpenHelper {
         ArrayList<ToDoItem> items = new ArrayList<ToDoItem>();
         items.add(item1);
         items.add(item2);
-        items.add(item1);
-        items.add(item1);
-        items.add(item2);
 
         for (ToDoItem item : items){
             ContentValues contentValues = new ContentValues();
