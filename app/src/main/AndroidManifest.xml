@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".activities.ItemEditActivity" />
         <activity android:name=".activities.ItemViewActivity" />
-        <activity android:name=".activities.SettingsActivity"></activity>
+        <activity android:name=".activities.SettingsActivity" />
+        <activity android:name=".activities.AboutMeActivity"></activity>
     </application>
 
 </manifest>

@@ -126,7 +126,8 @@ public class ListActivity extends AppCompatActivity {
         lvDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Toast.makeText(ListActivity.this, drawerItems[position], Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ListActivity.this, AboutMeActivity.class);
+                startActivity(intent);
             }
         });
 
