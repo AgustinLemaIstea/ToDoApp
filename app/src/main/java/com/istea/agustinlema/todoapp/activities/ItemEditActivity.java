@@ -34,6 +34,7 @@ public class ItemEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_edit);
         setupUI();
         setupSubmitButton();
+        loadItem();
     }
 
     private void setupUI() {
@@ -106,10 +107,26 @@ public class ItemEditActivity extends AppCompatActivity {
         if (validateFields()){
             Log.d("superlog", "onClick: es valido");
             saveToDB();
-            Toast.makeText(ItemEditActivity.this, "TodoItem guardado", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ItemEditActivity.this, "Tarea guardada", Toast.LENGTH_SHORT).show();
             //Volver a pantalla anterior.
             finish();
         }
+    }
+
+    private void loadItem() {
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            int itemID = extras.getInt("ITEMID");
+            ItemDBHelper dbHelper = ItemDBHelper.getInstance(this);
+            this.item = dbHelper.getTodoItem(itemID);
+            loadFormData(item);
+        }
+    }
+
+    private void loadFormData(ToDoItem item){
+        edtTitle.setText(item.getTitle());
+        edtBody.setText(item.getBody());
+        chkImportant.setChecked(item.isImportant());
     }
 
     @Override

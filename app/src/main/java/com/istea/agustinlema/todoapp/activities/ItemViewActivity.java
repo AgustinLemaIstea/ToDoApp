@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.istea.agustinlema.todoapp.R;
+import com.istea.agustinlema.todoapp.ToDoItemAdapter;
 import com.istea.agustinlema.todoapp.database.ItemDBHelper;
 import com.istea.agustinlema.todoapp.model.ToDoItem;
 
@@ -89,14 +91,43 @@ public class ItemViewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         //TODO: Cambiar a switch?
         if ( menuItem.getItemId() == R.id.menuEdit) {
-            //Intent intent = new Intent(ItemViewActivity.this,ItemEditActivity.class);
-            //intent.putExtra("ITEMID",item.getId());
-            //startActivity(intent);
+            Intent intent = new Intent(ItemViewActivity.this,ItemEditActivity.class);
+            intent.putExtra("ITEMID",item.getId());
+            startActivity(intent);
         } else if (menuItem.getItemId() == R.id.menuDelete) {
-            //showDeleteConfirmation();
+            showDeleteConfirmation();
         } else if (menuItem.getItemId() == android.R.id.home){
             onBackPressed();
         }
         return super.onOptionsItemSelected(menuItem);
+    }
+
+    private void showDeleteConfirmation(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String title = item.getTitle();
+
+        builder.setTitle("Borrar usuario")
+                .setMessage(String.format("¿Está seguro de que sea borrar el item %s?",title))
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ItemDBHelper dbHelper = ItemDBHelper.getInstance(ItemViewActivity.this);
+                        String message;
+                        if (dbHelper.deleteTodoItem(item)){
+                            message = "Item borrado correctamente";
+                        } else {
+                            message = "Ha ocurrido un error borrando el item";
+                        }
+                        Toast.makeText(ItemViewActivity.this, message, Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .show();
     }
 }
