@@ -1,7 +1,11 @@
 package com.istea.agustinlema.todoapp.activities;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +32,7 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
         setupUI();
         initializeListView();
+        showNotification();
     }
 
     private void setupUI() {
@@ -63,5 +68,23 @@ public class ListActivity extends AppCompatActivity {
                 Toast.makeText(ListActivity.this, todoItems.get(position).getTitle(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void showNotification(){
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(ListActivity.this);
+        builder.setContentTitle(String.format("Tenés %d tareas pendientes.",todoItems.size()))
+                .setContentText("Presioná acá para agregar una más.")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setAutoCancel(true);
+
+
+//        Intent intent = new Intent(ListActivity.this, PLACEHOLDER);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(ListActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);//pending intent
+//        builder.setContentIntent(pendingIntent);
+
+        NotificationManager managerCompat = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);//obtengo el servicio de notificaciones y se lo pongo al manager
+        managerCompat.notify(1, builder.build());    //le paso un id y el builder
+
     }
 }
