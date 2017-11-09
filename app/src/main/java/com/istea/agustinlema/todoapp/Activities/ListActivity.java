@@ -1,7 +1,9 @@
-package com.istea.agustinlema.todoapp;
+package com.istea.agustinlema.todoapp.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.istea.agustinlema.todoapp.R;
 
 public class ListActivity extends AppCompatActivity {
 
