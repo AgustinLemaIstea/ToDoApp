@@ -94,9 +94,15 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Log.d("SUPERLOG", "onItemClick: "+todoItems.get(position).getTitle());
-                Toast.makeText(ListActivity.this, todoItems.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                goToViewItem(todoItems.get(position).getId());
             }
         });
+    }
+
+    private void goToViewItem(int itemID){
+        Intent intent = new Intent(ListActivity.this,ItemViewActivity.class);
+        intent.putExtra("ITEMID",itemID);
+        startActivity(intent);
     }
 
     private void showNotification(){
