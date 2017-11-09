@@ -30,16 +30,16 @@ public class ToDoItemAdapter extends ArrayAdapter<ToDoItem> {
         ToDoItem item = getItem(position);
 
         //Genero una vista en base a mi xml
-        View v = LayoutInflater.from(getContext()).inflate(R.layout.item_todoitem,null);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.item_todoitem,null);
 
         //Accedo al textview de la vista que acabo de generar
-        TextView tvTitle = v.findViewById(R.id.tvTitle);
-        TextView tvBody = v.findViewById(R.id.tvBody);
-        LinearLayout layoutItem = v.findViewById(R.id.layoutItem);
+        TextView tvTitle = view.findViewById(R.id.tvTitle);
+        TextView tvBody = view.findViewById(R.id.tvBody);
+        LinearLayout layoutItem = view.findViewById(R.id.layoutItem);
         tvTitle.setText(item.getTitle());
         tvBody.setText(item.getBody());
-        if (item.isImportant()) layoutItem.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.primary_light));
+        if (item.isImportant()) layoutItem.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorPrimary));
 
-        return v;
+        return view;
     }
 }
