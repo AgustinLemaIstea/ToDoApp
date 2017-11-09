@@ -3,6 +3,7 @@ package com.istea.agustinlema.todoapp.activities;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
@@ -40,6 +41,9 @@ public class ListActivity extends AppCompatActivity {
         setupToolbar();
         initializeListView();
         showNotification();
+
+        //Create XML with default values
+        PreferenceManager.setDefaultValues(this, R.xml.settings, true);
     }
 
     @Override
@@ -69,8 +73,8 @@ public class ListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if ( item.getItemId() == R.id.menuConfig) {
             Toast.makeText(this, "Muestro config", Toast.LENGTH_SHORT).show();
-            //Intent intent = new Intent(this,SettingsActivity.class);
-            //startActivity(intent);
+            Intent intent = new Intent(this,SettingsActivity.class);
+            startActivity(intent);
         }
         else if (item.getItemId() == R.id.menuAdd) {
             Toast.makeText(this, "Agregar elemento", Toast.LENGTH_SHORT).show();
