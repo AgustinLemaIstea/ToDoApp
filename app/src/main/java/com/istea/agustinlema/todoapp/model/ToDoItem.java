@@ -10,6 +10,13 @@ public class ToDoItem {
         this.id = id;
     }
 
+    public ToDoItem(int id, String title, String body, boolean isImportant) {
+        this(id);
+        this.setTitle(title);
+        this.setBody(body);
+        this.setImportant(isImportant);
+    }
+
     public String getTitle() {
         return title;
     }
@@ -32,5 +39,9 @@ public class ToDoItem {
 
     public void setImportant(boolean important) {
         isImportant = important;
+    }
+
+    public int getId() {
+        return id;
     }
 }

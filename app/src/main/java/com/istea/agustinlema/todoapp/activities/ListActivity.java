@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.istea.agustinlema.todoapp.R;
 import com.istea.agustinlema.todoapp.ToDoItemAdapter;
+import com.istea.agustinlema.todoapp.database.ItemDBHelper;
 import com.istea.agustinlema.todoapp.model.ToDoItem;
 
 import java.util.ArrayList;
@@ -41,21 +42,8 @@ public class ListActivity extends AppCompatActivity {
 
     private void initializeListView() {
 
-        todoItems = new ArrayList<ToDoItem>();
-        ToDoItem item1 = new ToDoItem(1);
-        ToDoItem item2 = new ToDoItem(2);
-
-
-        item1.setTitle("Irse a dormir");
-        item1.setBody("Preparase para ir a dormir");
-
-        item2.setTitle("Preparar la comida");
-        item2.setBody("Hacer todo lo necesario para la cena de hoy");
-        item2.setImportant(true);
-
-        todoItems.add(item1);
-        todoItems.add(item2);
-        todoItems.add(item1);
+        ItemDBHelper dbHelper = ItemDBHelper.getInstance(this);
+        todoItems = dbHelper.getTodoItems();
 
         ToDoItemAdapter adapter = new ToDoItemAdapter(ListActivity.this, R.layout.item_todoitem, todoItems);
         lvToDoItems.setAdapter(adapter);
