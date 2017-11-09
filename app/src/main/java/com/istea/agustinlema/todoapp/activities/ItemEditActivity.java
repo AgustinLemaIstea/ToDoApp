@@ -20,6 +20,8 @@ import com.istea.agustinlema.todoapp.model.ToDoItem;
 
 public class ItemEditActivity extends AppCompatActivity {
 
+    private Toolbar toolbarEdit;
+
     private EditText edtTitle;
     private EditText edtBody;
     private CheckBox chkImportant;
@@ -33,17 +35,43 @@ public class ItemEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_edit);
         setupUI();
+        setupToolbar();
         setupSubmitButton();
         loadItem();
     }
 
     private void setupUI() {
+        toolbarEdit = (Toolbar) findViewById(R.id.toolbarEdit);
+
         edtTitle = (EditText) findViewById(R.id.edtTitle);
         edtBody = (EditText) findViewById(R.id.edtBody);
         chkImportant = (CheckBox) findViewById(R.id.chkImportant);
 
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
     }
+
+    private void setupToolbar(){
+        setSupportActionBar(toolbarEdit);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Only go back one level
+        getSupportActionBar().setTitle("Editar tarea");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar_edit, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menuSave) {
+            submitForm();
+        } else if (item.getItemId() == android.R.id.home){
+            promptGoBack();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void setupSubmitButton() {
         btnSubmit.setOnClickListener(new View.OnClickListener() {

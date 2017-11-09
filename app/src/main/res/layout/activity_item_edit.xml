@@ -7,6 +7,13 @@
     tools:context="com.istea.agustinlema.todoapp.activities.ItemEditActivity"
     android:orientation="vertical">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+    </android.support.v7.widget.Toolbar>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,9 +45,8 @@
             android:id="@+id/edtBody"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLines="1"
             android:maxLength="50"
+            android:inputType="text"
             android:hint="Detalles (opcional)"/>
     </LinearLayout>
 
