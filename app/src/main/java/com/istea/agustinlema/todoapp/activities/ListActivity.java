@@ -42,6 +42,12 @@ public class ListActivity extends AppCompatActivity {
         showNotification();
     }
 
+    @Override
+    protected void onResume() {
+        initializeListView();
+        super.onResume();
+    }
+
     private void setupUI() {
         lvToDoItems = (ListView) findViewById(R.id.lvToDoItems);
 
@@ -68,6 +74,8 @@ public class ListActivity extends AppCompatActivity {
         }
         else if (item.getItemId() == R.id.menuAdd) {
             Toast.makeText(this, "Agregar elemento", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this,ItemEditActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -100,9 +108,10 @@ public class ListActivity extends AppCompatActivity {
                 .setAutoCancel(true);
 
 
-//        Intent intent = new Intent(ListActivity.this, PLACEHOLDER);
-//        PendingIntent pendingIntent = PendingIntent.getActivity(ListActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);//pending intent
-//        builder.setContentIntent(pendingIntent);
+
+        Intent intent = new Intent(this,ItemEditActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(ListActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);//pending intent
+        builder.setContentIntent(pendingIntent);
 
         NotificationManager managerCompat = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);//obtengo el servicio de notificaciones y se lo pongo al manager
         managerCompat.notify(1, builder.build());    //le paso un id y el builder
