@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -27,10 +28,12 @@ import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
 
-    ListView lvToDoItems;
+    private ListView lvToDoItems;
     private List<ToDoItem> todoItems;
 
     private Toolbar toolbarList;
+
+    private ListView lvDrawer;
 
 
     @Override
@@ -40,6 +43,7 @@ public class ListActivity extends AppCompatActivity {
         setupUI();
         setupToolbar();
         initializeListView();
+        initializeDrawer();
         showNotification();
 
         //Create XML with default values
@@ -107,6 +111,25 @@ public class ListActivity extends AppCompatActivity {
         Intent intent = new Intent(ListActivity.this,ItemViewActivity.class);
         intent.putExtra("ITEMID",itemID);
         startActivity(intent);
+    }
+
+    private void initializeDrawer() {
+        lvDrawer = (ListView) findViewById(R.id.lvDrawer);
+        final String[] drawerItems = getResources().getStringArray(R.array.drawerItems);
+
+
+        ArrayAdapter adapter = new ArrayAdapter(ListActivity.this
+                , android.R.layout.simple_list_item_1, drawerItems);
+
+        lvDrawer.setAdapter(adapter);
+
+        lvDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Toast.makeText(ListActivity.this, drawerItems[position], Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void showNotification(){
