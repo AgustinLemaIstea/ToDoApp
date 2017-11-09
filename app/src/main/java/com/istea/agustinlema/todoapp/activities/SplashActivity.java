@@ -1,4 +1,4 @@
-package com.istea.agustinlema.todoapp.Activities;
+package com.istea.agustinlema.todoapp.activities;
 
 import android.content.Context;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package com.istea.agustinlema.todoapp.Activities;
+package com.istea.agustinlema.todoapp.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
