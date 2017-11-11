@@ -52,7 +52,6 @@ public class ItemViewActivity extends AppCompatActivity {
     private void loadData() {
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            Log.d("SUPERLOG", "loadData: "+extras.getInt("ITEMID"));
             int itemID = extras.getInt(getString(R.string.extrasItemID));
             ItemDBHelper dbHelper = ItemDBHelper.getInstance(this);
             ToDoItem item = dbHelper.getTodoItem(itemID);
@@ -62,7 +61,6 @@ public class ItemViewActivity extends AppCompatActivity {
                 this.item=item;
             } else {
                 Log.e("ItemViewActivity", "loadData: non existing item");
-                Toast.makeText(this, "Item inexistente", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }

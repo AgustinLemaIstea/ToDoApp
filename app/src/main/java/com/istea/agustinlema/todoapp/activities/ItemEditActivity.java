@@ -1,11 +1,10 @@
 package com.istea.agustinlema.todoapp.activities;
 
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -133,7 +132,6 @@ public class ItemEditActivity extends AppCompatActivity {
 
     private void submitForm() {
         if (validateFields()){
-            Log.d("superlog", "onClick: es valido");
             saveToDB();
             Toast.makeText(ItemEditActivity.this, R.string.taskSaved, Toast.LENGTH_SHORT).show();
             //Volver a pantalla anterior.

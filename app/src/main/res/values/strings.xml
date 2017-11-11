@@ -23,4 +23,12 @@
     <string name="taskBodyHint">Detalles (opcional)</string>
     <string name="isImportant">Es importante</string>
     <string name="save">Guardar</string>
+    <string name="addNew">Agregar nuevo</string>
+    <string name="config">configuración</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Borrar</string>
+    <string name="settingTitleSplash">Habilitar splash screen</string>
+    <string name="settingSummarySplash">Mostrar pantalla de carga al iniciar la aplicación</string>
+    <string name="settingTitleVibrate">Habilitar vibración</string>
+    <string name="settingSummaryVibrate">Vibrar al iniciar la aplicación</string>
 </resources>

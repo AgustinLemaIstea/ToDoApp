@@ -2,13 +2,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <CheckBoxPreference
         android:key="splash_on_startup"
-        android:title="Habilitar splash screen"
-        android:summary="Mostrar pantalla de carga al iniciar la aplicación"
+        android:title="@string/settingTitleSplash"
+        android:summary="@string/settingSummarySplash"
         android:defaultValue="true" />
     <CheckBoxPreference
         android:key="vibrate_on_startup"
-        android:title="Habilitar vibración"
-        android:summary="Vibrar al iniciar la aplicación"
+        android:title="@string/settingTitleVibrate"
+        android:summary="@string/settingSummaryVibrate"
         android:defaultValue="true"
         android:dependency="splash_on_startup"/>
 </PreferenceScreen>

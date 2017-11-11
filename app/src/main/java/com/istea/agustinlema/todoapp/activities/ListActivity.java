@@ -3,27 +3,23 @@ package com.istea.agustinlema.todoapp.activities;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.istea.agustinlema.todoapp.R;
 import com.istea.agustinlema.todoapp.ToDoItemAdapter;
 import com.istea.agustinlema.todoapp.database.ItemDBHelper;
 import com.istea.agustinlema.todoapp.model.ToDoItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
@@ -76,12 +72,10 @@ public class ListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if ( item.getItemId() == R.id.menuConfig) {
-            Toast.makeText(this, "Muestro config", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this,SettingsActivity.class);
             startActivity(intent);
         }
         else if (item.getItemId() == R.id.menuAdd) {
-            Toast.makeText(this, "Agregar elemento", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this,ItemEditActivity.class);
             startActivity(intent);
         }
@@ -104,7 +98,6 @@ public class ListActivity extends AppCompatActivity {
         lvToDoItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Log.d("SUPERLOG", "onItemClick: "+todoItems.get(position).getTitle());
                 goToViewItem(todoItems.get(position).getId());
             }
         });
