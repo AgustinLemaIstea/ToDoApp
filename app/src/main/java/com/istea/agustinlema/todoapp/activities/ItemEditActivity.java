@@ -53,7 +53,7 @@ public class ItemEditActivity extends AppCompatActivity {
     private void setupToolbar(){
         setSupportActionBar(toolbarEdit);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Only go back one level
-        getSupportActionBar().setTitle("Editar tarea");
+        getSupportActionBar().setTitle(R.string.titleEditTask);
     }
 
     @Override
@@ -87,12 +87,12 @@ public class ItemEditActivity extends AppCompatActivity {
 
         if (edtTitle.getText().length()<=0){
             isValid=false;
-            edtTitle.setError("Debe ingresar un título");
+            edtTitle.setError(getString(R.string.editErrorTitle));
         }
 
         if (edtBody.getText().length()>50){
             isValid=false;
-            edtBody.setError("El máximo de caracteres es 50");
+            edtBody.setError(getString(R.string.editErrorBody));
         }
 
         return isValid;
@@ -114,15 +114,15 @@ public class ItemEditActivity extends AppCompatActivity {
     private void promptGoBack(){
         AlertDialog.Builder builder = new AlertDialog.Builder(ItemEditActivity.this);
 
-        builder.setTitle("Volver")
-                .setMessage("¿Desea volver y perder los cambios?")
-                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.goBack)
+                .setMessage(R.string.DialogLoseChanges)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         finish();
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
@@ -135,7 +135,7 @@ public class ItemEditActivity extends AppCompatActivity {
         if (validateFields()){
             Log.d("superlog", "onClick: es valido");
             saveToDB();
-            Toast.makeText(ItemEditActivity.this, "Tarea guardada", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ItemEditActivity.this, R.string.taskSaved, Toast.LENGTH_SHORT).show();
             //Volver a pantalla anterior.
             finish();
         }
@@ -144,7 +144,7 @@ public class ItemEditActivity extends AppCompatActivity {
     private void loadItem() {
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            int itemID = extras.getInt("ITEMID");
+            int itemID = extras.getInt(getString(R.string.extrasItemID));
             ItemDBHelper dbHelper = ItemDBHelper.getInstance(this);
             this.item = dbHelper.getTodoItem(itemID);
             loadFormData(item);

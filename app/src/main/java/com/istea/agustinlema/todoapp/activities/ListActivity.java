@@ -64,7 +64,7 @@ public class ListActivity extends AppCompatActivity {
 
     private void setupToolbar(){
         setSupportActionBar(toolbarList);
-        getSupportActionBar().setTitle("Tareas pendientes");
+        getSupportActionBar().setTitle(R.string.titleTaskList);
     }
 
     @Override
@@ -112,7 +112,7 @@ public class ListActivity extends AppCompatActivity {
 
     private void goToViewItem(int itemID){
         Intent intent = new Intent(ListActivity.this,ItemViewActivity.class);
-        intent.putExtra("ITEMID",itemID);
+        intent.putExtra(getString(R.string.extrasItemID),itemID);
         startActivity(intent);
     }
 
@@ -139,8 +139,8 @@ public class ListActivity extends AppCompatActivity {
     private void showNotification(){
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(ListActivity.this);
-        builder.setContentTitle(String.format("Tenés %d tareas pendientes.",todoItems.size()))
-                .setContentText("Presioná acá para agregar una más.")
+        builder.setContentTitle(String.format(getString(R.string.notificationPendingTasks),todoItems.size()))
+                .setContentText(getString(R.string.notificationAddMore))
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setAutoCancel(true);
 

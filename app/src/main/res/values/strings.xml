@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">ToDoApp</string>
+    <string name="titleEditTask">Editar tarea</string>
+    <string name="editErrorTitle">Debe ingresar un título</string>
+    <string name="editErrorBody">El máximo de caracteres es 50</string>
+    <string name="goBack">Volver</string>
+    <string name="DialogLoseChanges">¿Desea volver y perder los cambios?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="taskSaved">Tarea guardada</string>
+    <string name="extrasItemID">ITEMID</string>
+    <string name="titleDeleteUser">Borrar usuario</string>
+    <string name="dialogDeleteUser">¿Está seguro de que sea borrar el item %s?</string>
+    <string name="itemDeleted">Item borrado correctamente</string>
+    <string name="errorItemDelete">Ha ocurrido un error borrando el item</string>
+    <string name="titleTaskList">Tareas pendientes</string>
+    <string name="notificationPendingTasks">Tenés %d tareas pendientes.</string>
+    <string name="notificationAddMore">Presioná acá para agregar una más.</string>
+    <string name="aboutme">Soy una app que sirve para decirte que tenés que hacer, casi como si fuera tu jefe pero sin pagarte un sueldo :).</string>
+    <string name="title">Título</string>
+    <string name="edtTitle">Ingrese un título a la tarea</string>
+    <string name="taskBody">Descripción</string>
+    <string name="taskBodyHint">Detalles (opcional)</string>
+    <string name="isImportant">Es importante</string>
+    <string name="save">Guardar</string>
 </resources>

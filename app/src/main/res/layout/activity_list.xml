@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:elevation="4dp"></android.support.v7.widget.Toolbar>
+        android:elevation="@dimen/toolbarElevation" />
 
     <android.support.v4.widget.DrawerLayout
         android:layout_width="match_parent"
@@ -22,13 +22,13 @@
             android:id="@+id/lvToDoItems"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:dividerHeight="8dp" />
+            android:layout_margin="@dimen/taskListMargin"
+            android:dividerHeight="@dimen/taskListDividerHeight" />
 
 
         <ListView
             android:id="@+id/lvDrawer"
-            android:layout_width="150dp"
+            android:layout_width="@dimen/drawerWidth"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="@color/primary_light"

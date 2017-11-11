@@ -9,5 +9,5 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Soy una app que sirve para decirte que tenés que hacer, casi como si fuera tu jefe pero sin pagarte un sueldo :)."/>
+        android:text="@string/aboutme"/>
 </android.support.constraint.ConstraintLayout>

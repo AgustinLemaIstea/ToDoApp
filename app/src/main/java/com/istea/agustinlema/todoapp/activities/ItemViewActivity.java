@@ -53,7 +53,7 @@ public class ItemViewActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             Log.d("SUPERLOG", "loadData: "+extras.getInt("ITEMID"));
-            int itemID = extras.getInt("ITEMID");
+            int itemID = extras.getInt(getString(R.string.extrasItemID));
             ItemDBHelper dbHelper = ItemDBHelper.getInstance(this);
             ToDoItem item = dbHelper.getTodoItem(itemID);
 
@@ -61,6 +61,7 @@ public class ItemViewActivity extends AppCompatActivity {
                 mapItemToForm(item);
                 this.item=item;
             } else {
+                Log.e("ItemViewActivity", "loadData: non existing item");
                 Toast.makeText(this, "Item inexistente", Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -91,7 +92,7 @@ public class ItemViewActivity extends AppCompatActivity {
         //TODO: Cambiar a switch?
         if ( menuItem.getItemId() == R.id.menuEdit) {
             Intent intent = new Intent(ItemViewActivity.this,ItemEditActivity.class);
-            intent.putExtra("ITEMID",item.getId());
+            intent.putExtra(getString(R.string.extrasItemID),item.getId());
             startActivity(intent);
         } else if (menuItem.getItemId() == R.id.menuDelete) {
             showDeleteConfirmation();
@@ -105,23 +106,23 @@ public class ItemViewActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String title = item.getTitle();
 
-        builder.setTitle("Borrar usuario")
-                .setMessage(String.format("¿Está seguro de que sea borrar el item %s?",title))
-                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.titleDeleteUser)
+                .setMessage(String.format(getString(R.string.dialogDeleteUser),title))
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         ItemDBHelper dbHelper = ItemDBHelper.getInstance(ItemViewActivity.this);
                         String message;
                         if (dbHelper.deleteTodoItem(item)){
-                            message = "Item borrado correctamente";
+                            message = getString(R.string.itemDeleted);
                         } else {
-                            message = "Ha ocurrido un error borrando el item";
+                            message = getString(R.string.errorItemDelete);
                         }
                         Toast.makeText(ItemViewActivity.this, message, Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="rowMarginRight">10dp</dimen>
+    <dimen name="toolbarElevation">4dp</dimen>
+    <dimen name="taskListMargin">10dp</dimen>
+    <dimen name="taskListDividerHeight">8dp</dimen>
+    <dimen name="drawerWidth">150dp</dimen>
+    <dimen name="itemListpaddingVertical">10dp</dimen>
+    <dimen name="itemListpaddingLeft">15dp</dimen>
+    <dimen name="itemListpaddingRight">5dp</dimen>
+    <dimen name="itemListTitleSize">15sp</dimen>
+    <dimen name="itemListDescriptionMarginLeft">10dp</dimen>
+</resources>

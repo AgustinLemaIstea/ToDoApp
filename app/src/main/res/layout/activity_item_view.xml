@@ -4,56 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.istea.agustinlema.todoapp.activities.ItemViewActivity"
     android:shrinkColumns="*"
-    android:weightSum="1">
+    android:weightSum="1"
+    tools:context="com.istea.agustinlema.todoapp.activities.ItemViewActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
-    </android.support.v7.widget.Toolbar>
+        android:background="@color/colorPrimary"></android.support.v7.widget.Toolbar>
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:layout_marginRight="@dimen/rowMarginRight">
 
         <TextView
-
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Título"
-            android:layout_marginRight="10dp"
             android:layout_weight="0.3"
-            android:textStyle="bold"/>
+            android:text="@string/title"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvTitleView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.7"
-            />
+            android:layout_weight="0.7" />
     </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/rowMarginRight">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Descripción"
-            android:layout_marginRight="10dp"
             android:layout_weight="0.3"
-            android:textStyle="bold"/>
+            android:text="@string/taskBody"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvBodyView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.7"/>
+            android:layout_weight="0.7" />
     </TableRow>
 
 
@@ -61,7 +58,7 @@
         android:id="@+id/chkImportantView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Es importante"
-        android:clickable="false" />
+        android:clickable="false"
+        android:text="@string/isImportant" />
 
 </TableLayout>
