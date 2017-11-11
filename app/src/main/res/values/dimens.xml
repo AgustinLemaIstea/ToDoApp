@@ -10,4 +10,6 @@
     <dimen name="itemListpaddingRight">5dp</dimen>
     <dimen name="itemListTitleSize">15sp</dimen>
     <dimen name="itemListDescriptionMarginLeft">10dp</dimen>
+    <dimen name="imageLogoSize">75dp</dimen>
+    <dimen name="aboutMeMargin">20dp</dimen>
 </resources>

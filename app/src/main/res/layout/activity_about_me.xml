@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.istea.agustinlema.todoapp.activities.AboutMeActivity"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:background="@color/primary_light"
+    android:padding="@dimen/aboutMeMargin"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="@dimen/imageLogoSize"
+        android:layout_height="@dimen/imageLogoSize"
+        android:src="@drawable/loadingimage"
+        android:scaleType="centerCrop"
+        android:background='#F1592A'
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/aboutMeMargin"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/aboutme"/>
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

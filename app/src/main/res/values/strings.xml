@@ -31,4 +31,5 @@
     <string name="settingSummarySplash">Mostrar pantalla de carga al iniciar la aplicación</string>
     <string name="settingTitleVibrate">Habilitar vibración</string>
     <string name="settingSummaryVibrate">Vibrar al iniciar la aplicación</string>
+    <string name="todoapp">ToDoApp</string>
 </resources>

@@ -26,14 +26,38 @@
             android:dividerHeight="@dimen/taskListDividerHeight" />
 
 
-        <ListView
-            android:id="@+id/lvDrawer"
+        <LinearLayout
             android:layout_width="@dimen/drawerWidth"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:layout_gravity="start"
             android:background="@color/primary_light"
-            android:choiceMode="singleChoice"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="0dp" />
+            android:padding="5dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_launcher"
+                    android:scaleType="centerCrop"
+                    android:background='#F1592A'
+                    android:layout_gravity="start" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/todoapp"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/lvDrawer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:choiceMode="singleChoice"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0dp" />
+        </LinearLayout>
     </android.support.v4.widget.DrawerLayout>
 </LinearLayout>
