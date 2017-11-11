@@ -42,8 +42,8 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
         setupUI();
         setupToolbar();
-        initializeListView();
         initializeDrawer();
+        loadListViewData();
         showNotification();
 
         //Create XML with default values
@@ -89,10 +89,13 @@ public class ListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void initializeListView() {
-
+    private void loadListViewData() {
         ItemDBHelper dbHelper = ItemDBHelper.getInstance(this);
         todoItems = dbHelper.getTodoItems();
+    }
+
+    private void initializeListView() {
+        loadListViewData();
 
         ToDoItemAdapter adapter = new ToDoItemAdapter(ListActivity.this, R.layout.item_todoitem, todoItems);
         lvToDoItems.setAdapter(adapter);

@@ -34,7 +34,6 @@ public class ItemViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_view);
         setupUI();
-        loadData();
         setupToolbar();
     }
 
