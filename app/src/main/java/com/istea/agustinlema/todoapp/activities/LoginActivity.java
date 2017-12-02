@@ -8,12 +8,15 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.istea.agustinlema.todoapp.R;
+import com.istea.agustinlema.todoapp.database.loginDBHelper;
 
 public class LoginActivity extends AppCompatActivity {
 
     EditText edtLoginUser;
     EditText edtLoginPassword;
+
     Button loginButton;
+    Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +24,15 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         setupUI();
         setupLoginButton();
+        setupRegisterButton();
     }
 
     private void setupUI() {
         edtLoginUser = (EditText) findViewById(R.id.edtLoginUser);
         edtLoginPassword = (EditText) findViewById(R.id.edtLoginPassword);
+
         loginButton = (Button) findViewById(R.id.loginButton);
+        registerButton = (Button) findViewById(R.id.registerButton);
     }
 
     private void setupLoginButton() {
@@ -34,6 +40,16 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 submitForm();
+            }
+        });
+    }
+
+    private void setupRegisterButton() {
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -68,9 +84,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean checkUserPasswordCombination(String user, String password) {
-        if (user.equals("bar") && password.equals("foo"))
-            return true;
-        return false;
+        loginDBHelper dbHelper = loginDBHelper.getInstance(this);
+        return (dbHelper.validateUser(user,password));
     }
 
     private void completeLogin() {

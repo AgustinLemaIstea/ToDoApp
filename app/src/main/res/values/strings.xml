@@ -38,4 +38,8 @@
     <string name="loginErrorUserMissing">Debe ingresar un usuario</string>
     <string name="loginErrorPasswordMissing">Debe ingresar su contraseña</string>
     <string name="loginInvalid">Usuario o contraseña inválidos</string>
+    <string name="password2">Repita su password:</string>
+    <string name="userCreateError">No se ha podido registrar, intente con otro usuario</string>
+    <string name="passwordMismatch">Las contraseñas no coinciden</string>
+    <string name="signup">Registrarse</string>
 </resources>
