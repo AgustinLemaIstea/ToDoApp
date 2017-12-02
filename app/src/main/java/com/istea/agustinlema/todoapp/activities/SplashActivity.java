@@ -27,7 +27,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void goToHome(){
-        Intent intent = new Intent(SplashActivity.this, ListActivity.class);
+        Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

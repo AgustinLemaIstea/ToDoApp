@@ -32,4 +32,10 @@
     <string name="settingTitleVibrate">Habilitar vibración</string>
     <string name="settingSummaryVibrate">Vibrar al iniciar la aplicación</string>
     <string name="todoapp">ToDoApp</string>
+    <string name="login">Ingresar</string>
+    <string name="user">Usuario:</string>
+    <string name="password">Contraseña:</string>
+    <string name="loginErrorUserMissing">Debe ingresar un usuario</string>
+    <string name="loginErrorPasswordMissing">Debe ingresar su contraseña</string>
+    <string name="loginInvalid">Usuario o contraseña inválidos</string>
 </resources>
