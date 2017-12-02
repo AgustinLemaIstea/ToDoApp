@@ -12,12 +12,12 @@ import java.util.ArrayList;
 
 public class ItemDBHelper extends SQLiteOpenHelper {
 
-    static String DATABASE_NAME = "ISTEA_USUARIOS";
-    static int DB_VERSION=1;
-    static String ITEM_TABLE = "TodoItems";
-    static String ITEM_TITLE = "Title";
-    static String ITEM_BODY = "Body";
-    static String ITEM_ISIMPORTANT = "Important";
+    static final String DATABASE_NAME = "ISTEA_USUARIOS";
+    static final int DB_VERSION=1;
+    static final String ITEM_TABLE = "TodoItems";
+    static final String ITEM_TITLE = "Title";
+    static final String ITEM_BODY = "Body";
+    static final String ITEM_ISIMPORTANT = "Important";
 
     static ItemDBHelper instance;
 
