@@ -2,6 +2,7 @@ package com.istea.agustinlema.todoapp.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.istea.agustinlema.todoapp.R;
 import com.istea.agustinlema.todoapp.ToDoItemAdapter;
+import com.istea.agustinlema.todoapp.async.Callback;
 import com.istea.agustinlema.todoapp.database.ItemDBHelper;
 import com.istea.agustinlema.todoapp.model.ToDoItem;
 
@@ -51,18 +53,11 @@ public class ItemViewActivity extends AppCompatActivity {
 
     private void loadData() {
         Bundle extras = getIntent().getExtras();
-        if(extras != null) {
+        if (extras != null) {
             int itemID = extras.getInt(getString(R.string.extrasItemID));
-            ItemDBHelper dbHelper = ItemDBHelper.getInstance(this);
-            ToDoItem item = dbHelper.getTodoItem(itemID);
 
-            if (item!= null){
-                mapItemToForm(item);
-                this.item=item;
-            } else {
-                Log.e("ItemViewActivity", "loadData: non existing item");
-                finish();
-            }
+            MyAsyncTask async = new MyAsyncTask();
+            async.execute(itemID);
         }
     }
 
@@ -72,7 +67,7 @@ public class ItemViewActivity extends AppCompatActivity {
         chkImportant.setChecked(item.isImportant());
     }
 
-    private void setupToolbar(){
+    private void setupToolbar() {
         toolbarView = (Toolbar) findViewById(R.id.toolbarView);
         setSupportActionBar(toolbarView);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Only go back one level
@@ -88,30 +83,30 @@ public class ItemViewActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         //TODO: Cambiar a switch?
-        if ( menuItem.getItemId() == R.id.menuEdit) {
-            Intent intent = new Intent(ItemViewActivity.this,ItemEditActivity.class);
-            intent.putExtra(getString(R.string.extrasItemID),item.getId());
+        if (menuItem.getItemId() == R.id.menuEdit) {
+            Intent intent = new Intent(ItemViewActivity.this, ItemEditActivity.class);
+            intent.putExtra(getString(R.string.extrasItemID), item.getId());
             startActivity(intent);
         } else if (menuItem.getItemId() == R.id.menuDelete) {
             showDeleteConfirmation();
-        } else if (menuItem.getItemId() == android.R.id.home){
+        } else if (menuItem.getItemId() == android.R.id.home) {
             onBackPressed();
         }
         return super.onOptionsItemSelected(menuItem);
     }
 
-    private void showDeleteConfirmation(){
+    private void showDeleteConfirmation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String title = item.getTitle();
 
         builder.setTitle(R.string.titleDeleteUser)
-                .setMessage(String.format(getString(R.string.dialogDeleteUser),title))
+                .setMessage(String.format(getString(R.string.dialogDeleteUser), title))
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         ItemDBHelper dbHelper = ItemDBHelper.getInstance(ItemViewActivity.this);
                         String message;
-                        if (dbHelper.deleteTodoItem(item)){
+                        if (dbHelper.deleteTodoItem(item)) {
                             message = getString(R.string.itemDeleted);
                         } else {
                             message = getString(R.string.errorItemDelete);
@@ -128,4 +123,42 @@ public class ItemViewActivity extends AppCompatActivity {
                 })
                 .show();
     }
+
+    private class MyAsyncTask extends AsyncTask<Integer, Integer, ToDoItem> {
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected ToDoItem doInBackground(Integer... itemIDs) {
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                Thread.interrupted();
+            }
+            ItemDBHelper dbHelper = ItemDBHelper.getInstance(ItemViewActivity.this);
+
+            ToDoItem item = dbHelper.getTodoItemSync(itemIDs[0]);
+            return item;
+        }
+
+        //Recibe lo que sale de doInBackground
+        //Se ejecuta en el thread de UI
+        @Override
+        protected void onPostExecute(ToDoItem item) {
+            super.onPostExecute(item);
+
+            if (item != null) {
+                mapItemToForm(item);
+                ItemViewActivity.this.item = item;
+            } else {
+                Log.e("ItemViewActivity", "loadData: non existing item");
+                finish();
+            }
+        }
+    }
 }
+

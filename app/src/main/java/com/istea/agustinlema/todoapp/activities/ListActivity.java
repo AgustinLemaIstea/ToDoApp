@@ -17,9 +17,11 @@ import android.widget.ListView;
 
 import com.istea.agustinlema.todoapp.R;
 import com.istea.agustinlema.todoapp.ToDoItemAdapter;
+import com.istea.agustinlema.todoapp.async.Callback;
 import com.istea.agustinlema.todoapp.database.ItemDBHelper;
 import com.istea.agustinlema.todoapp.model.ToDoItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
@@ -31,16 +33,18 @@ public class ListActivity extends AppCompatActivity {
 
     private ListView lvDrawer;
 
+    private boolean startedFlag;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+        startedFlag=false;
+
         setupUI();
         setupToolbar();
         initializeDrawer();
-        loadListViewData();
-        showNotification();
 
         //Create XML with default values
         PreferenceManager.setDefaultValues(this, R.xml.settings, true);
@@ -83,14 +87,33 @@ public class ListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void loadListViewData() {
+    private void initializeListView() {
+
         ItemDBHelper dbHelper = ItemDBHelper.getInstance(this);
-        todoItems = dbHelper.getTodoItems();
+
+        //Forma divertida de usar async task. Le paso un objeto callback a mi método del dbhelper
+        //Este método se ejecutará usando un async task y luego ejecutará mi callback con el resultado
+        //Tuve que usar RunOnUiThread porque las para modificar vistas necesito ejecutar en el hilo de UI
+        dbHelper.getTodoItems(new Callback<ArrayList<ToDoItem>>() {
+            @Override
+            public void onFinish(final ArrayList<ToDoItem> result) {
+                runOnUiThread(new Runnable() //run on ui thread
+                {
+                    public void run()
+                    {
+                        todoItems=result;
+                        showList();
+                        if (!startedFlag){ //Run only at start
+                            showNotification();
+                            startedFlag=true;
+                        }
+                    }
+                });
+            }
+        });
     }
 
-    private void initializeListView() {
-        loadListViewData();
-
+    private void showList(){
         ToDoItemAdapter adapter = new ToDoItemAdapter(ListActivity.this, R.layout.item_todoitem, todoItems);
         lvToDoItems.setAdapter(adapter);
 

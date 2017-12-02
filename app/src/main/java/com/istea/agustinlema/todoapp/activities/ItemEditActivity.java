@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.istea.agustinlema.todoapp.R;
+import com.istea.agustinlema.todoapp.async.Callback;
 import com.istea.agustinlema.todoapp.database.ItemDBHelper;
 import com.istea.agustinlema.todoapp.model.ToDoItem;
 
@@ -144,8 +145,20 @@ public class ItemEditActivity extends AppCompatActivity {
         if(extras != null) {
             int itemID = extras.getInt(getString(R.string.extrasItemID));
             ItemDBHelper dbHelper = ItemDBHelper.getInstance(this);
-            this.item = dbHelper.getTodoItem(itemID);
-            loadFormData(item);
+
+            //Forma divertida de usar async task, ver el list view para más info.
+            dbHelper.getTodoItem(itemID, new Callback<ToDoItem>() {
+                @Override
+                public void onFinish(final ToDoItem result) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ItemEditActivity.this.item=result;
+                            loadFormData(item);
+                        }
+                    });
+                }
+            });
         }
     }
 
