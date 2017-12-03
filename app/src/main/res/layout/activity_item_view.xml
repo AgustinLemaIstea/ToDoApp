@@ -53,12 +53,16 @@
             android:layout_weight="0.7" />
     </TableRow>
 
-
-    <CheckBox
-        android:id="@+id/chkImportantView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="false"
-        android:text="@string/isImportant" />
+    <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/isImportant"/>
+        <ImageView
+            android:id="@+id/imgIsImportant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"/>
+    </TableRow>
 
 </TableLayout>

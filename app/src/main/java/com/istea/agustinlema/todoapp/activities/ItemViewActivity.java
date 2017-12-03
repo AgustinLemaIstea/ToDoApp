@@ -3,21 +3,19 @@ package com.istea.agustinlema.todoapp.activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.istea.agustinlema.todoapp.R;
-import com.istea.agustinlema.todoapp.ToDoItemAdapter;
-import com.istea.agustinlema.todoapp.async.Callback;
 import com.istea.agustinlema.todoapp.database.ItemDBHelper;
 import com.istea.agustinlema.todoapp.model.ToDoItem;
 
@@ -25,7 +23,7 @@ public class ItemViewActivity extends AppCompatActivity {
 
     private TextView tvTitle;
     private TextView tvBody;
-    private CheckBox chkImportant;
+    private ImageView imgIsImportant;
 
     private Toolbar toolbarView;
 
@@ -48,7 +46,7 @@ public class ItemViewActivity extends AppCompatActivity {
     private void setupUI() {
         tvTitle = (TextView) findViewById(R.id.tvTitleView);
         tvBody = (TextView) findViewById(R.id.tvBodyView);
-        chkImportant = (CheckBox) findViewById(R.id.chkImportantView);
+        imgIsImportant = (ImageView) findViewById(R.id.imgIsImportant);
     }
 
     private void loadData() {
@@ -64,7 +62,10 @@ public class ItemViewActivity extends AppCompatActivity {
     private void mapItemToForm(ToDoItem item) {
         tvTitle.setText(item.getTitle());
         tvBody.setText(item.getBody());
-        chkImportant.setChecked(item.isImportant());
+        if (item.isImportant())
+            imgIsImportant.setImageResource(R.drawable.ic_checked);
+        else
+            imgIsImportant.setImageResource(R.drawable.ic_unchecked);
     }
 
     private void setupToolbar() {
