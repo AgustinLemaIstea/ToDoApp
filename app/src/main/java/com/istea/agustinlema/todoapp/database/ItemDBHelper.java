@@ -18,6 +18,7 @@ public class ItemDBHelper extends SQLiteOpenHelper {
     static final String DATABASE_NAME = "ISTEA_USUARIOS";
     static final int DB_VERSION = 1;
     static final String ITEM_TABLE = "TodoItems";
+    static final String USERID = "userID";
     static final String ITEM_TITLE = "Title";
     static final String ITEM_BODY = "Body";
     static final String ITEM_ISIMPORTANT = "Important";
@@ -42,6 +43,7 @@ public class ItemDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("create table if not exists " + ITEM_TABLE + " (id integer primary key, "
+                + USERID + " integer not null, "
                 + ITEM_TITLE + " text, " + ITEM_BODY + " text, "
                 + ITEM_ISIMPORTANT + " boolean )");
 
@@ -69,6 +71,7 @@ public class ItemDBHelper extends SQLiteOpenHelper {
                 contentValues.put(ITEM_TITLE, item.getTitle());
                 contentValues.put(ITEM_BODY, item.getBody());
                 contentValues.put(ITEM_ISIMPORTANT, item.isImportant());
+                contentValues.put(USERID, 1);
                 db.insert(ITEM_TABLE, null, contentValues);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -87,21 +90,22 @@ public class ItemDBHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public boolean saveTodoItem(ToDoItem item) {
+    public boolean saveTodoItem(ToDoItem item, int userID) {
         if (item.getId() > 0) {
-            return updateTodoItem(item);
+            return updateTodoItem(item, userID);
         } else {
-            return insertTodoItem(item);
+            return insertTodoItem(item, userID);
         }
     }
 
-    private boolean insertTodoItem(ToDoItem item) {
+    private boolean insertTodoItem(ToDoItem item, int userID) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         try {
             contentValues.put(ITEM_TITLE, item.getTitle());
             contentValues.put(ITEM_BODY, item.getBody());
             contentValues.put(ITEM_ISIMPORTANT, item.isImportant());
+            contentValues.put(USERID, userID);
             db.insert(ITEM_TABLE, null, contentValues);
             return true;
         } catch (Exception e) {
@@ -110,14 +114,20 @@ public class ItemDBHelper extends SQLiteOpenHelper {
         }
     }
 
-    private boolean updateTodoItem(ToDoItem item) {
+    private boolean updateTodoItem(ToDoItem item, int userID) {
+        if (userID <= 0)
+            return false;
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         try {
             contentValues.put(ITEM_TITLE, item.getTitle());
             contentValues.put(ITEM_BODY, item.getBody());
             contentValues.put(ITEM_ISIMPORTANT, item.isImportant());
-            db.update(ITEM_TABLE, contentValues, "id = ?", new String[]{String.valueOf(item.getId())});
+            db.update(ITEM_TABLE, contentValues, "id = ? AND " + USERID + " = ?", new String[]{
+                    String.valueOf(item.getId()),
+                    String.valueOf(userID)
+            });
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -125,10 +135,16 @@ public class ItemDBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean deleteTodoItem(ToDoItem item) {
+    public boolean deleteTodoItem(ToDoItem item, int userID) {
+        if (userID <= 0)
+            return false;
         SQLiteDatabase db = this.getWritableDatabase();
         try {
-            db.delete(ITEM_TABLE, "id = ?", new String[]{String.valueOf(item.getId())});
+            db.delete(ITEM_TABLE,
+                    "id = ? AND " + USERID + " = ?", new String[]{
+                            String.valueOf(item.getId()),
+                            String.valueOf(userID)
+                    });
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -136,10 +152,15 @@ public class ItemDBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public ArrayList<ToDoItem> getTodoItemsSync() {
+    public ArrayList<ToDoItem> getTodoItemsSync(int userID) {
+        if (userID <= 0)
+            return null;
+
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<ToDoItem> items = new ArrayList<>();
-        Cursor cur = db.rawQuery("select * from " + ITEM_TABLE, null);
+        Cursor cur = db.rawQuery("select * from " + ITEM_TABLE+" WHERE "+USERID + " = ?",
+                new String[]{ String.valueOf(userID) });
+
         cur.moveToFirst();
         //Recorro con un cursor toda la DB
         try {
@@ -161,7 +182,7 @@ public class ItemDBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void getTodoItems(final Callback<ArrayList<ToDoItem>> callback) {
+    public void getTodoItems(final int userID, final Callback<ArrayList<ToDoItem>> callback) {
         AsyncTaskRunner runner = new AsyncTaskRunner();
         runner.execute(new Command() {
             @Override
@@ -171,7 +192,7 @@ public class ItemDBHelper extends SQLiteOpenHelper {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                ArrayList<ToDoItem> items = getTodoItemsSync();
+                ArrayList<ToDoItem> items = getTodoItemsSync(userID);
                 callback.onFinish(items);
             }
         });
@@ -210,7 +231,6 @@ public class ItemDBHelper extends SQLiteOpenHelper {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                ArrayList<ToDoItem> items = getTodoItemsSync();
                 ToDoItem item = getTodoItemSync(id);
                 callback.onFinish(item);
             }

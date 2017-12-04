@@ -28,6 +28,8 @@ public class ItemViewActivity extends AppCompatActivity {
     private Toolbar toolbarView;
 
     private ToDoItem item;
+    private int userID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +109,7 @@ public class ItemViewActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         ItemDBHelper dbHelper = ItemDBHelper.getInstance(ItemViewActivity.this);
                         String message;
-                        if (dbHelper.deleteTodoItem(item)) {
+                        if (dbHelper.deleteTodoItem(item,userID)) {
                             message = getString(R.string.itemDeleted);
                         } else {
                             message = getString(R.string.errorItemDelete);

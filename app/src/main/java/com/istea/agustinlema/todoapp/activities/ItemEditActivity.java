@@ -29,6 +29,7 @@ public class ItemEditActivity extends AppCompatActivity {
     private Button btnSubmit;
 
     private ToDoItem item;
+    private int userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +109,7 @@ public class ItemEditActivity extends AppCompatActivity {
         item.setImportant(chkImportant.isChecked());
 
         ItemDBHelper dbHelper = ItemDBHelper.getInstance(this);
-        dbHelper.saveTodoItem(item);
+        dbHelper.saveTodoItem(item, userID);
     }
 
     private void promptGoBack(){
